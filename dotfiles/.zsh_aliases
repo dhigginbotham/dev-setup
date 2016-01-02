@@ -51,3 +51,6 @@ alias du3='du --max-depth=3 -h -c'
 
 # Clear the terminal
 alias cls='clear'
+
+# Statz
+alias statz='inxi -Fz'
