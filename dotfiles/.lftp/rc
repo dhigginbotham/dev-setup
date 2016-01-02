@@ -33,6 +33,7 @@ set cmd:queue-parallel 1
 # if true, lftp resolves host name immediately in 'open' command. It is also possible to skip the check for a 
 # single 'open' command if '&' is given, or if ^Z is pressed during the check. 
 set cmd:verify-host no
+set ssl:verify-certificate no
 
 # local character set. It is set from current locale initially.
 set file:charset utf-8
@@ -55,6 +56,7 @@ set ftp:ssl-allow yes
 # match data and control connections by session ID. Default is true. 
 # if true, refuse to send password in clear when server does not support SSL. Default is false.
 set ftp:ssl-force yes
+set ftp:ssl-auth TLS
 
 # if true, request ssl connection for data transfers. This is cpu-intensive but provides privacy. Default is false.
 set ftp:ssl-protect-data yes
@@ -93,7 +95,7 @@ set ftp:verify-port yes
 set mirror:use-pget-n 10
 
 # maximum number of concurrent connections to the same site. 0 means unlimited.
-set net:connection-limit 4
+set net:connection-limit 10
 
 # default number of chunks to split the file to in pget.
 set pget:default-n 10 

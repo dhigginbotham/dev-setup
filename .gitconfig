@@ -1,6 +1,6 @@
 [user]
-       email = davehigginbotham@gmail.com
-       name = David Higginbotham
+        email = davehigginbotham@gmail.com
+        name = David Higginbotham
 [core]
         mergeoptions = --no-commit
 [alias]
@@ -20,8 +20,8 @@
         ammend = commit --amend -C HEAD
         ll = log --stat --abbrev-commit
         pob = !git fetch && git merge origin/$1 && git push
-	z = reset --soft HEAD^
-	c = !git add . --all && git commit -m
+        z = reset --soft HEAD^
+        c = !git add . --all && git commit -m
 [mergeo]
         commit = no
 [color]
@@ -42,4 +42,4 @@
         changed = green
         untracked = cyan
 [push]
-	default = upstream
+	      default = upstream

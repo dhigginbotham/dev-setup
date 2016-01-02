@@ -2,8 +2,10 @@
 This is where I start when I setup a xfce dev box, it's all fairly worthless to anyone else, although feel free to have fun &hearts;.
 
 ###`dotfiles`
-- .bash_aliases, .zsh_aliases
-- .bashrc, .zshrc
+- .zsh_aliases
+- .zshrc
+- .zsh_env
+- .lftp/rc file
 
 ###`init.d`
 - init.d to swap caps key with ctrl
