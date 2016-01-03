@@ -5,20 +5,7 @@ export ZSH=$HOME/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-# ZSH_THEME="jonathan"
-# ZSH_THEME="agnoster"
-# ZSH_THEME="jonathan"
-# ZSH_THEME="lambda-mod"
-# ZSH_THEME="smt"
-# ZSH_THEME="simonoff"
-# ZSH_THEME="dogenpunk"
-# ZSH_THEME="Soliah"
-# ZSH_THEME="pure"
-# ZSH_THEME="trapd00r"
-# ZSH_THEME="bureau"
 ZSH_THEME="node"
-
-# "robbyrussell"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -66,7 +53,7 @@ plugins=(git docker python grunt gulp nmap git-extras ssh-agent debian)
 
 # User configuration
 
-export PATH="/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/usr/local/sbin:/usr/sbin:/sbin:/usr/local/go/bin:/home/dan/.nimble/bin:/usr/local/share/scala/bin:/home/higgamuffin/code/ttygif:$PATH"
+export PATH="/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/usr/local/sbin:/usr/sbin:/sbin:/usr/local/go/bin:/usr/local/share/scala/bin:$PATH"
 # export MANPATH="/usr/local/man:$MANPATH"
 # /usr/local/nvm/versions/node/v0.12.4/bin:
 
