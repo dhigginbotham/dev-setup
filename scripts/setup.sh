@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Debian/BSD Requirements / Updates + monitoring tools: atop & htop
-sudo apt-get update && apt-get install -y vim-nox git-core curl atop htop build-essential libssl-dev linux-image-amd64 linux-headers-amd64
+sudo apt-get update && apt-get install -y vim-nox git-core curl atop htop build-essential libssl-dev linux-image-amd64 linux-headers-amd64 wget
 
 # OSX, Debian & RHEL: Host OS Tuning
 sudo sysctl -w vm.max_map_count=262144
@@ -14,13 +14,22 @@ mkdir ~/backups
 cp ~/.bash* ~/backups/
 
 # Debian/BSD:  Append Shell Environment Shortcuts + XTERM Colors
-curl -sSL https://raw.githubusercontent.com/justsml/system-setup-tools/master/home-scripts/.bashrc > ~/.bashrc
-curl -sSL https://raw.githubusercontent.com/justsml/system-setup-tools/master/home-scripts/.bash_aliases > ~/.bash_aliases
+# curl -sSL https://raw.githubusercontent.com/justsml/system-setup-tools/master/home-scripts/.bashrc > ~/.bashrc
+# curl -sSL https://raw.githubusercontent.com/justsml/system-setup-tools/master/home-scripts/.bash_aliases > ~/.bash_aliases
 
 # Read into current shell (login steps already missed the aliases file)
-source ~/.bashrc
+# source ~/.bashrc
 
 # Docker pre reqs
 # sudo apt-get install -y linux-image-virtual linux-image-extra-virtual
 # Install Docker, straight from the horses mouth
 curl -sSL https://get.docker.com/ | sh
+
+# Optional for bluetooth via pulse audio
+sudo apt-get install pulseaudio-module-bluetooth
+
+# Optional LFTP install, useful for the ftping of filez.
+sudo apt-get install lftp 
+
+# Optional TTF-MSCorefonts
+sudo apt-get install ttf-mscorefonts-installer 
