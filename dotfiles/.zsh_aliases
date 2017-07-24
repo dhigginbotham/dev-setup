@@ -1,56 +1,93 @@
+KERNEL_NAME="$(uname -s)"
+if [[ $KERNEL_NAME =~ ^"Darwin" ]]; then
+  export OSX="true"
+else
+  export OSX="false"
+fi
+#### MAIN ALIASES ####
 
 # ** Rsync copy preserve-Attribs, Recursive, w/ Progress
 alias cpsync='rsync -WarP'
 alias copy='rsync -WarP'
 
-# *** list startup services
-alias service-list="chkconfig --list | grep '3:on'"
-alias services-all="chkconfig --list | grep '3:on'"
-
-# *** Bring harmony to the lands
-alias node='node  --harmony --harmony_modules --harmony_sloppy_function --harmony_sloppy_let --harmony_arrow_functions --harmony_default_parameters --harmony_destructuring'
+# *** list startup services - No Mac Support. launchctrl. pffff.
+if [ -f "$(which chkconfig 2>/dev/null)" ]; then
+  alias service-list="chkconfig --list | grep '3:on'"
+  alias services-all="chkconfig --list | grep '3:on'"
+fi
+if [[ $OSX == "true" ]]; then
+  alias service-list="echo 'Haha, good luck with launchctl'"
+  alias services-all="echo 'Haha, good luck with launchctl'"
+else
+  alias service-list="service --status-all"
+  alias services-all="service --status-all"
+fi
 
 # ** monitor logs
-alias alog='sudo tail -500f /var/log/auth.log'
-alias slog='sudo tail -500f /var/log/syslog'
-alias mlog='sudo tail -500f /var/log/messages'
+alias loga='sudo tail -500f /var/log/auth.log'
+alias logs='sudo tail -500f /var/log/syslog'
+alias logm='sudo tail -500f /var/log/messages'
 
-# *** See port status
-alias ports-all='netstat -pawnt'
-alias ports-open='netstat -pawnt | grep LISTEN'
-alias ports-active='netstat -pawnt | grep ESTABLISHED'
-
-# ** List all IP addresses
-alias ips='hostname --all-ip-addresses'
+# ** List all IP addresses (see netspy & netlisteners helpers below)
+alias ips="ifconfig | grep 'inet ' | grep -v 127.0.0.1 | cut -d\t -f2 | sed 's/[^0-9\.]*//g'"
+if [[ "$OSX" == "true" ]]; then
+  # *** See port status
+  alias ports-all='lsof -Pn -i4'
+  alias ports-open='lsof -Pn -i4 | grep LISTEN'
+  alias ports-active='lsof -Pn -i4 | grep ESTABLISHED'
+else
+  # *** See port status
+  alias ports-all='netstat -pawnt'
+  alias ports-open='netstat -pawnt | grep LISTEN'
+  alias ports-active='netstat -pawnt | grep ESTABLISHED'
+fi
 
 # ** List paths
-alias path='echo -e ${PATH//:/\\n}'
-
-# Turn color on if we can
-alias ls='ls --color=auto'
-alias dir='dir --color=auto'
-alias vdir='vdir --color=auto'
-alias grep='grep --color=auto'
-alias fgrep='fgrep --color=auto'
-alias egrep='egrep --color=auto'
+alias paths='echo -e ${PATH//:/\\n}'
+alias paths-sorted='echo -e ${PATH//:/\\n} | sort'
+alias paths-deduped='echo -e ${PATH//:/\\n} | uniq'
+alias paths-summary='echo -e ${PATH//:/\\n} | sort | uniq'
+# *** Find all files matched in any path folder
+alias pathsfinder='which -a $1'
 
 # *** Extend gnu cmds
-alias ll='ls -lachF --color=always'
-alias la='ls -A --color=always'
-alias l='ls -CF --color=always'
-alias lsbig='ls -lachS --color=always'
-alias lsnew='ls -lacht --color=always'
+alias ll='ls -lach'
+alias la='ls -A'
+alias l='ls -C'
+alias lsbig='ls -lachS'
+alias lss='lsbig'
+alias lsnew='ls -lacht'
+alias lt='lsnew'
 
-# *** Disk space in human terms
+# *** Disk space use in human terms
 alias df='df -h'
 alias du='du -h -c'
-alias dud='du --max-depth=1 -h -c'
-alias du1='du --max-depth=1 -h -c'
-alias du2='du --max-depth=2 -h -c'
-alias du3='du --max-depth=3 -h -c'
+alias du1='du -d 1 -h -c' # Sums 1 folder deep
+alias du2='du -d 2 -h -c' # Sums 2 folder deep
+alias du3='du -d 3 -h -c' # Sums 3 folder deep
+# Only include same filesystem
+alias dud='du -d 1 -h -c -x'
+alias dud1='du -d 1 -h -c -x' # Sums 1 folder deep, same fs
+alias dud2='du -d 2 -h -c -x' # Sums 2 folder deep, same fs
+alias dud3='du -d 3 -h -c -x' # Sums 3 folder deep, same fs
 
-# Clear the terminal
+# Old Misc Polyfills
 alias cls='clear'
+
+#>>>> Recovered from http://alias.sh
+#List top ten largest files/directories in current directory
+alias ducks='du -cks *|sort -rn|head -11'
+alias dskload="ps faux|awk '\$8 ~ /D/{print}'"
+#Find a String in the Entire Git History
+alias findgit='git rev-list --all | xargs git grep -F'
+#history-search
+alias hs='history | grep --color=auto'
+alias hsx='history | egrep --color=auto'
+alias netlisteners='lsof -i -P | grep LISTEN'
+#identify and search for active network connections
+alias netspy='lsof -i -P +c 0 +M | grep -i "$1"'
+# remove leading & trailing spaces
+alias trim="awk '{\$1=\$1};1'"
 
 # Statz
 alias statz='inxi -Fz'
